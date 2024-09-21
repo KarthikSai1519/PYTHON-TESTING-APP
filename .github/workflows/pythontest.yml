@@ -17,11 +17,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-
-         
+          if [ -f requirement.txt ]; then pip install -r requirements.txt; fi
+      - name: lint with Ruff
+      run:
+      pip install ruff
+      ruff --format=github --target-version=py310 .
+      continue-on-error: true
       
-
-      - name: Run tests
+   - name: Run tests
         run: |
           python  unittestcases.py
 
